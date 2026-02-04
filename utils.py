@@ -36,7 +36,7 @@ def forecast_to_dashboard_df(
         If provided, denormalize using: raw = z * sigma + mu.
         Use the SAME mu/sigma you fit on train.
     node_expected_mae : np.ndarray or None
-        Expected error per node, shape [N], from validation residuals, used for confidence.
+        Expected error per node, shape [N], from validation/test residuals, used for confidence.
     wide : bool
         If True, returns one row per node with columns pred_t+5, pred_t+10, ...
         If False, returns long format: one row per (node, horizon).
@@ -66,6 +66,9 @@ def forecast_to_dashboard_df(
 
     # Denormalize if requested
     if (mu is not None) and (sigma is not None):
+        sigma = float(sigma)
+        if sigma == 0:
+            sigma = 1.0  # avoid degenerate denormalization
         pred_raw = pred_NH * float(sigma) + float(mu)
         current_raw = None if current is None else (np.asarray(current) * float(sigma) + float(mu))
     else:
