@@ -1,0 +1,64 @@
+# ── Data ──────────────────────────────────────────────
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  hdf5_file: metr-la.h5
+  distances_file: distances_la_2012.csv
+  sensor_locations_file: graph_sensor_locations.csv
+  sensor_ids_file: graph_sensor_ids.txt
+  seq_len: 12          # input window  (12 × 5 min = 1 h)
+  horizon: 12          # output window (12 × 5 min = 1 h)
+  train_ratio: 0.7
+  val_ratio: 0.1
+  test_ratio: 0.2
+  batch_size: 64
+  num_workers: 4
+
+# ── Graph ─────────────────────────────────────────────
+graph:
+  sigma2: 10.0         # Gaussian kernel variance
+  epsilon: 0.6         # sparsification threshold
+  include_self_loops: true
+
+# ── Model ─────────────────────────────────────────────
+model:
+  in_channels: 2       # speed + time-of-day
+  hidden_dim: 64
+  out_horizon: 12      # predict 12 steps ahead
+  num_nodes: 207
+  gcn_layers: 2
+  dropout: 0.3
+
+# ── Training ──────────────────────────────────────────
+training:
+  epochs: 100
+  lr: 0.01
+  weight_decay: 0.0001
+  scheduler: cosine    # cosine | step
+  patience: 15         # early stopping
+  grad_clip: 5.0
+  checkpoint_dir: outputs/checkpoints
+  best_model: best_model.pt
+
+# ── Streaming ─────────────────────────────────────────
+streaming:
+  output_dir: outputs/streaming
+  parquet_file: stream_predictions.parquet
+  latest_csv: stream_latest.csv
+  max_latest_rows: 2000
+  mode: fast           # fast | realtime
+  interval_sec: 5      # only used in realtime mode
+
+# ── Export ────────────────────────────────────────────
+export:
+  output_dir: outputs/tableau
+  sensor_dim: sensor_dim.csv
+  time_dim: time_dim.csv
+  fact_predictions: fact_predictions.parquet
+  adjacency_edges: adjacency_edges.csv
+
+# ── Visualization ─────────────────────────────────────
+viz:
+  figure_dir: outputs/figures
+  dpi: 150
+  style: seaborn-v0_8-whitegrid
