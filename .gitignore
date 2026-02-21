@@ -16,3 +16,6 @@ outputs/figures/
 .env
 *.ipynb_checkpoints/
 .DS_Store
+README.md
+.README.md
+.claude/
