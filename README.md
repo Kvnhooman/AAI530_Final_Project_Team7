@@ -119,3 +119,8 @@ la-traffic-gnn/
 - Zhao, L. et al. (2020). T-GCN: A Temporal Graph Convolutional Network for Traffic Prediction. *IEEE Transactions on Intelligent Transportation Systems*.
 - Li, Y. et al. (2018). Diffusion Convolutional Recurrent Neural Network: Data-Driven Traffic Forecasting. *ICLR 2018*.
 - Kipf, T. N. & Welling, M. (2017). Semi-Supervised Classification with Graph Convolutional Networks. *ICLR 2017*.
+- Anthropic. (2025). Claude 4.6 Opus (February 2026) [Large language model]. https://claude.ai/
+
+## Note From Lucas Young
+I use claude code as a coding assistant during large projects. This was used during my portion of the project in a way that accelerated my learing of the material. At every step of the way I ensure that I fully understand the mechanisms behind any code of which AI helps me to write. In doing so, I am able to achieve much more in the period of time than I would otherwise be able to accomplish. My description of my AI usage does not reflect any usage of my teammates.
+-Lucas Young
